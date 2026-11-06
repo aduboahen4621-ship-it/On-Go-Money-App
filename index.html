@@ -294,6 +294,53 @@ footer p{
 </head>
 <body>
 <header>
+    <!-- ON GO ACCOUNT REGISTRATION -->
+<section id="register">
+    <h2>Create Your On Go Account</h2>
+
+    <input
+        type="email"
+        id="registerEmail"
+        placeholder="Enter your email"
+        required
+    >
+
+    <input
+        type="password"
+        id="registerPassword"
+        placeholder="Create password"
+        required
+    >
+
+    <button onclick="registerOnGo()">
+        Create Account
+    </button>
+</section>
+
+<!-- ON GO LOGIN -->
+<section id="login">
+    <h2>Welcome Back</h2>
+
+    <input
+        type="email"
+        id="loginEmail"
+        placeholder="Enter your email"
+        required
+    >
+
+    <input
+        type="password"
+        id="loginPassword"
+        placeholder="Enter password"
+        required
+    >
+
+    <button onclick="loginOnGo()">
+        Login
+    </button>
+</section>
+
+<p id="authMessage"></p>
     <div class="logo">
         On <span>Go</span>
         <small>Send • Receive • Go Further</small>
