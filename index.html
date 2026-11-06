@@ -489,19 +489,85 @@ footer p{
     <p>On Go is a payment platform concept. Payment services become available only after integration and authorization.</p>
 </footer>
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    signOut
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDn5SHatR_n193gUgM8w2IcVxG0ogg97HA",
-  authDomain: "on-go-money-app.firebaseapp.com",
-  projectId: "on-go-money-app",
-  storageBucket: "on-go-money-app.firebasestorage.app",
-  messagingSenderId: "697221273968",
-  appId: "1:697221273968:web:77379f65c30d5255a4d7b5",
-  measurementId: "G-9C59GBFB8R"
+    apiKey: ""AIzaSyDn5SHatR_n193gUgM8w2IcVxG0ogg97HA",",
+    authDomain: "on-go-money-app.firebaseapp.com",
+    projectId: "on-go-money-app",
+    storageBucket: "YOUR_ACTUAL_STORAGE_BUCKET",
+    messagingSenderId: "697221273968",
+    appId: ""1:697221273968:web:77379f65c30d5255a4d7b5",",
+    measurementId: "G-9C59GBFB8R"
 };
 
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+// REGISTER
+window.registerOnGo = async function() {
+
+    const email = document.getElementById("registerEmail").value;
+    const password = document.getElementById("registerPassword").value;
+
+    try {
+
+        await createUserWithEmailAndPassword(auth, email, password);
+
+        document.getElementById("authMessage").innerText =
+        "Account created successfully! Welcome to On Go.";
+
+    } catch(error) {
+
+        document.getElementById("authMessage").innerText =
+        error.message;
+
+    }
+
+};
+
+// LOGIN
+window.loginOnGo = async function() {
+
+    const email = document.getElementById("loginEmail").value;
+    const password = document.getElementById("loginPassword").value;
+
+    try {
+
+        await signInWithEmailAndPassword(auth, email, password);
+
+        document.getElementById("authMessage").innerText =
+        "Login successful! Welcome back.";
+
+    } catch(error) {
+
+        document.getElementById("authMessage").innerText =
+        error.message;
+
+    }
+
+};
+
+// LOGOUT
+window.logoutOnGo = async function() {
+
+    await signOut(auth);
+
+    alert("You have logged out successfully.");
+
+};
+
+</script>
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
