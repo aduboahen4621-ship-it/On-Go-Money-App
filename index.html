@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>On Go | Send • Receive • Go Further</title>
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+:root{
+    --blue:#0645d8;
+    --red:#ff1727;
+    --white:#ffffff;
+    --dark:#071b49;
+}
+body{
+    background:#f4f8ff;
+    color:var(--dark);
+}
+header{
+    background:white;
+    padding:20px 6%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:15px;
+    box-shadow:0 2px 15px #00000010;
+}
+.logo{
+    font-size:40px;
+    font-weight:bold;
+    color:var(--blue);
+}
+.logo span{
+    color:var(--red);
+}
+.logo small{
+    display:block;
+    font-size:12px;
+    color:var(--dark);
+    letter-spacing:1px;
+}
+nav{
+    display:flex;
+    gap:25px;
+    flex-wrap:wrap;
+}
+nav a{
+    text-decoration:none;
+    color:var(--dark);
+    font-weight:bold;
+}
+nav a:hover{
+    color:var(--blue);
+}
+button,.btn{
+    padding:14px 25px;
+    border:none;
+    border-radius:35px;
+    cursor:pointer;
+    font-weight:bold;
+    text-decoration:none;
+    display:inline-block;
+}
+.primary{
+    background:var(--blue);
+    color:white;
+}
+.secondary{
+    border:2px solid var(--blue);
+    color:var(--blue);
+    background:white;
+}
+.hero{
+    padding:75px 6%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:40px;
+    background:linear-gradient(120deg,#ffffff,#d8e8ff);
+    flex-wrap:wrap;
+}
+.hero-content{
+    flex:1;
+    min-width:280px;
+}
+.hero h1{
+    font-size:65px;
+    color:var(--blue);
+    margin-bottom:15px;
+}
+.hero h1 span{
+    color:var(--red);
+}
+.hero h2{
+    font-size:35px;
+    line-height:1.3;
+    margin-bottom:20px;
+}
+.hero p{
+    font-size:18px;
+    line-height:1.7;
+    margin-bottom:25px;
+}
+.hero-buttons{
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+}
+.countries{
+    margin-top:30px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+}
+.country{
+    background:white;
+    padding:12px 15px;
+    border-radius:12px;
+    box-shadow:0 3px 10px #00000010;
+    font-weight:bold;
+}
+.hero-card{
+    flex:1;
+    min-width:280px;
+    background:linear-gradient(145deg,#0645d8,#001c75);
+    padding:35px;
+    border-radius:30px;
+    color:white;
+    box-shadow:0 20px 50px #0645d840;
+}
+.hero-card h2{
+    font-size:28px;
+}
+.balance{
+    background:#ffffff20;
+    padding:25px;
+    margin:25px 0;
+    border-radius:20px;
+}
+.balance h1{
+    font-size:35px;
+    color:white;
+}
+.wallet-buttons{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+.wallet-buttons div{
+    background:white;
+    color:var(--blue);
+    padding:20px;
+    border-radius:15px;
+    text-align:center;
+    font-weight:bold;
+}
+section{
+    padding:65px 6%;
+}
+.section-title{
+    text-align:center;
+    font-size:35px;
+    margin-bottom:40px;
+}
+.features{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:25px;
+}
+.feature{
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:0 5px 20px #00000008;
+}
+.feature .icon{
+    font-size:45px;
+    color:var(--blue);
+    margin-bottom:15px;
+}
+.feature h3{
+    margin-bottom:15px;
+}
+.feature p{
+    line-height:1.6;
+}
+.how{
+    background:white;
+}
+.steps{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:25px;
+}
+.step{
+    padding:25px;
+    text-align:center;
+}
+.step-number{
+    width:60px;
+    height:60px;
+    background:var(--blue);
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:50%;
+    font-size:25px;
+    margin:0 auto 20px;
+}
+.countries-section{
+    text-align:center;
+    background:#e7efff;
+}
+.country-list{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:15px;
+}
+.contact{
+    text-align:center;
+    background:white;
+}
+.contact h2{
+    margin-bottom:20px;
+}
+.contact p{
+    margin:15px 0;
+    font-size:18px;
+}
+.contact-number{
+    color:var(--blue);
+    font-size:30px;
+    font-weight:bold;
+    text-decoration:none;
+}
+footer{
+    background:#00164f;
+    color:white;
+    padding:35px 6%;
+    text-align:center;
+}
+footer .logo{
+    color:white;
+    margin-bottom:15px;
+}
+footer .logo span{
+    color:var(--red);
+}
+footer p{
+    margin:12px 0;
+}
+.footer-links{
+    margin:20px 0;
+}
+.footer-links a{
+    color:white;
+    text-decoration:none;
+    margin:10px;
+}
+@media(max-width:768px){
+    header{
+        justify-content:center;
+        text-align:center;
+    }
+    nav{
+        justify-content:center;
+    }
+    .hero{
+        padding:45px 5%;
+    }
+    .hero h1{
+        font-size:48px;
+    }
+    .hero h2{
+        font-size:28px;
+    }
+    .hero-card{
+        width:100%;
+    }
+    .section-title{
+        font-size:28px;
+    }
+}
+</style>
+</head>
+<body>
+<header>
+    <div class="logo">
+        On <span>Go</span>
+        <small>Send • Receive • Go Further</small>
+    </div>
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#features">Features</a>
+        <a href="#how">How It Works</a>
+        <a href="#countries">Countries</a>
+        <a href="#contact">Contact</a>
+    </nav>
+    <div>
+        <a href="#contact" class="btn secondary">Login</a>
+        <a href="#contact" class="btn primary">Sign Up</a>
+    </div>
+</header>
+<!-- HERO -->
+<section class="hero" id="home">
+    <div class="hero-content">
+        <h1>On <span>Go</span></h1>
+        <h2>Send and Receive Money from Anywhere in the World</h2>
+        <p>
+            Fast. Secure. Convenient.<br>
+            Your international payment experience starts with On Go.
+            Explore convenient payment options and connect across borders.
+        </p>
+        <div class="hero-buttons">
+            <a href="#contact" class="btn primary">Get Started →</a>
+            <a href="#features" class="btn secondary">Learn More</a>
+        </div>
+        <div class="countries">
+            <div class="country">🇺🇸 USA</div>
+            <div class="country">🇬🇧 UK</div>
+            <div class="country">🇨🇦 Canada</div>
+            <div class="country">🇩🇪 Germany</div>
+            <div class="country">🇬🇭 Ghana</div>
+            <div class="country">🇳🇬 Nigeria</div>
+            <div class="country">🌍 More Countries</div>
+        </div>
+    </div>
+    <div class="hero-card">
+        <h2>Welcome to On Go</h2>
+        <div class="balance">
+            <p>Your Payment Dashboard</p>
+            <h1>On Go Wallet</h1>
+            <p>Send • Receive • Withdraw</p>
+        </div>
+        <div class="wallet-buttons">
+            <div>↓<br>Receive Money</div>
+            <div>↑<br>Send Money</div>
+            <div>📱<br>Mobile Money</div>
+            <div>🏦<br>Bank Account</div>
+        </div>
+    </div>
+</section>
+<!-- FEATURES -->
+<section id="features">
+    <h2 class="section-title">Why Choose On Go?</h2>
+    <div class="features">
+        <div class="feature">
+            <div class="icon">⚡</div>
+            <h3>Fast Payments</h3>
+            <p>Designed to make international payment experiences simple and convenient.</p>
+        </div>
+        <div class="feature">
+            <div class="icon">🔐</div>
+            <h3>Security Focused</h3>
+            <p>We prioritize the protection of customer information and payment security.</p>
+        </div>
+        <div class="feature">
+            <div class="icon">🌍</div>
+            <h3>Worldwide Connections</h3>
+            <p>Connect with customers and payment opportunities across borders.</p>
+        </div>
+        <div class="feature">
+            <div class="icon">💳</div>
+            <h3>Payment Convenience</h3>
+            <p>Explore convenient payment solutions for your international transactions.</p>
+        </div>
+    </div>
+</section>
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+    <h2 class="section-title">How On Go Works</h2>
+    <div class="steps">
+        <div class="step">
+            <div class="step-number">1</div>
+            <h3>Create an Account</h3>
+            <p>Register and provide the information required for verification.</p>
+        </div>
+        <div class="step">
+            <div class="step-number">2</div>
+            <h3>Choose a Payment</h3>
+            <p>Select an available payment method and supported country.</p>
+        </div>
+        <div class="step">
+            <div class="step-number">3</div>
+            <h3>Receive or Send</h3>
+            <p>Use supported payment services to send or receive money.</p>
+        </div>
+        <div class="step">
+            <div class="step-number">4</div>
+            <h3>Withdraw</h3>
+            <p>Access supported withdrawal options where available.</p>
+        </div>
+    </div>
+</section>
+<!-- COUNTRIES -->
+<section class="countries-section" id="countries">
+    <h2 class="section-title">Connecting Countries</h2>
+    <div class="country-list">
+        <div class="country">🇬🇭 Ghana</div>
+        <div class="country">🇳🇬 Nigeria</div>
+        <div class="country">🇺🇸 United States</div>
+        <div class="country">🇬🇧 United Kingdom</div>
+        <div class="country">🇨🇦 Canada</div>
+        <div class="country">🇩🇪 Germany</div>
+        <div class="country">🇫🇷 France</div>
+        <div class="country">🇿🇦 South Africa</div>
+    </div>
+</section>
+<!-- CONTACT -->
+<section class="contact" id="contact">
+    <h2 class="section-title">Contact On Go</h2>
+    <p>Need information about On Go?</p>
+    <p>Call our information line:</p>
+    <a class="contact-number" href="tel:+233532939878">
+        0532939878
+    </a>
+    <br><br>
+    <a class="btn primary" href="tel:+233532939878">
+        📞 Call On Go Now
+    </a>
+</section>
+<!-- FOOTER -->
+<footer>
+    <div class="logo">On <span>Go</span></div>
+    <p>Send • Receive • Go Further</p>
+    <div class="footer-links">
+        <a href="#home">Home</a>
+        <a href="#features">Features</a>
+        <a href="#countries">Countries</a>
+        <a href="#contact">Contact</a>
+    </div>
+    <p>© 2026 On Go. All rights reserved.</p>
+    <p>On Go is a payment platform concept. Payment services become available only after integration and authorization.</p>
+</footer>
+</body>
+</html>
