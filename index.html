@@ -441,5 +441,24 @@ footer p{
     <p>© 2026 On Go. All rights reserved.</p>
     <p>On Go is a payment platform concept. Payment services become available only after integration and authorization.</p>
 </footer>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDn5SHatR_n193gUgM8w2IcVxG0ogg97HA",
+  authDomain: "on-go-money-app.firebaseapp.com",
+  projectId: "on-go-money-app",
+  storageBucket: "on-go-money-app.firebasestorage.app",
+  messagingSenderId: "697221273968",
+  appId: "1:697221273968:web:77379f65c30d5255a4d7b5",
+  measurementId: "G-9C59GBFB8R"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+window.onGoAuth = auth;
+</script>
 </body>
 </html>
